@@ -60,7 +60,7 @@ func (db DynamoDBClient) InsertUser(user types.RegisterUser) error {
 	}
 
 	_, err := db.databaseStore.PutItem(item)
-	
+
 	if err != nil {
 		return err
 	}
