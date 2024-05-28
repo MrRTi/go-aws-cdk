@@ -16,7 +16,7 @@ const (
 
 type UserStore interface {
 	UserExists(username string) (bool, error)
-	InsertUser(user types.RegisterUser) error
+	InsertUser(user types.User) error
 }
 
 type DynamoDBClient struct {
@@ -53,7 +53,7 @@ func (db DynamoDBClient) UserExists(username string) (bool, error) {
 	return true, nil
 }
 
-func (db DynamoDBClient) InsertUser(user types.RegisterUser) error {
+func (db DynamoDBClient) InsertUser(user types.User) error {
 	item := &dynamodb.PutItemInput{
 		TableName: aws.String(USERS_TABLE_NAME),
 		Item: map[string]*dynamodb.AttributeValue{
@@ -61,7 +61,7 @@ func (db DynamoDBClient) InsertUser(user types.RegisterUser) error {
 				S: aws.String(user.Username),
 			},
 			"password": {
-				S: aws.String(user.Password),
+				S: aws.String(user.PasswordHash),
 			},
 		},
 	}
