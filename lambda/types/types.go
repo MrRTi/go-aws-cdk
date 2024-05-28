@@ -19,10 +19,10 @@ func NewUser(registerUser RegisterUser) (User, error) {
 	}
 
 	return User{
-		Username: registerUser.Username,
+		Username:     registerUser.Username,
 		PasswordHash: string(hashedPassword),
 	}, nil
-} 
+}
 
 func ValidatePassword(hashedPassword, plainTextPassword string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(plainTextPassword))
