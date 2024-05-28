@@ -12,6 +12,11 @@ const (
 	USERS_TABLE_NAME = "users"
 )
 
+type UserStore interface {
+	UserExists(username string) (bool, error)
+	InsertUser(user types.RegisterUser) error
+}
+
 type DynamoDBClient struct {
 	databaseStore *dynamodb.DynamoDB
 }
