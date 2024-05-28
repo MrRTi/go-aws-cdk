@@ -122,8 +122,11 @@ func (api ApiHandler) LoginUserHandler(request events.APIGatewayProxyRequest) (e
 
 	}
 
+	accessToken := types.CreateToken(user)
+	successMessage := fmt.Sprintf(`{"access_token": "%s"}`, accessToken)
+
 	return events.APIGatewayProxyResponse{
-		Body:       "Successful login",
+		Body:       successMessage,
 		StatusCode: http.StatusOK,
 	}, nil
 }
